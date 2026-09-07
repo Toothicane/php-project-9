@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Page analyzer</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="flex items-center bg-gray-900 px-3 py-3">
+      <h3 class="text-white">Анализатор страниц</h3>
+      <nav>
+      <ul class="ml-6 flex gap-4">
+        <li><a class="text-sm text-gray-300" href="/">Главная</a></li>
+        <li><a class="text-sm text-gray-300" href="/sites">Сайты</a></li>
+      </ul>
+      </nav>
+    </header>
+    <main>
+      <div role="alert">
+        <?php if (count($flash) > 0) : ?>
+            <ul>
+            <?php foreach ($flash as $messages) : ?>
+                <?php foreach ($messages as $message) : ?>
+                <li><?= $message ?></li>
+                <?php endforeach ?>
+            <?php endforeach ?>
+            </ul>
+        <?php endif ?>
+      </div>
+      <?= $content ?>
+    </main>
+  </body>
+</html>

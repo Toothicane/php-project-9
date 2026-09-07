@@ -5,6 +5,7 @@ start:
 
 setup:
 	composer install
+	npx @tailwindcss/cli -i ./app.css -o ./public/styles.css
 
 lint:
 	composer exec --verbose phpcs -- --standard=PSR12 public
