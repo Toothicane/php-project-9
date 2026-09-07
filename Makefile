@@ -5,6 +5,7 @@ start:
 
 setup:
 	composer install
+	npm ci
 	npx @tailwindcss/cli -i ./app.css -o ./public/styles.css
 
 lint:
