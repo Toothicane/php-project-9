@@ -2,6 +2,8 @@
 
 [![hexlet-check](https://github.com/Toothicane/php-project-9/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Toothicane/php-project-9/actions)
 
+
+[Deployed project](https://php-project-9-1upv.onrender.com)
 Создадите полноценное веб-приложение, которое выполняет запросы по сети и сохраняет данные в базу данных. Настроите CI и выполните деплой.
 
 Учебный проект Хекслета: https://ru.hexlet.io/programs/php
