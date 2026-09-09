@@ -40,7 +40,7 @@ $container->set(PDO::class, function () {
     $username = $databaseUrl['user'];
     $password = $databaseUrl['pass'];
     $host = $databaseUrl['host'];
-    $port = $databaseUrl['port'];
+    $port = $databaseUrl['port'] ?? 5432;
     $dbName = ltrim($databaseUrl['path'], '/');
 
     $dsn = "pgsql:host=$host;port=$port;dbname=$dbName";
