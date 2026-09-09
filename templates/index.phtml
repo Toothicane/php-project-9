@@ -1,19 +1,38 @@
-<form action="/urls" method="post" class="mx-auto w-fit bg-stone-100 border border-stone-300 rounded-md p-8 mt-4">
-    <h1 class="text-5xl">Анализатор страниц</h1>
-    <p class="mt-4 text-sm">Бесплатно проверяйте сайты на SEO-пригодность</p>
-    
-    <div class="mt-4 flex w-full gap-4">
-      <input 
-        class="flex-1 rounded-md border border-gray-300 px-3 py-2"
-        type="text" 
-        name="url" 
-        placeholder="https://www.example.com"
-      >
-      <button 
-        class="rounded-md bg-blue-600 px-10 py-2 font-medium text-white uppercase"
-        type="submit"
-      >
-        Проверить
-      </button>
-    </div>
+<?php
+/** @var string $url */
+/** @var array $errors */
+?>
+
+<form action="/" method="post" class="mx-auto w-fit bg-stone-100 border border-stone-300 rounded-md px-8 pt-8 pb-4 mt-4">
+  <h1 class="text-5xl">Анализатор страниц</h1>
+  <p class="mt-4 text-sm">Бесплатно проверяйте сайты на SEO-пригодность</p>
+  
+  <div class="mt-4 flex w-full gap-4">
+    <input 
+      class="flex-1 rounded-md border border-gray-300 px-3 py-2"
+      type="text" 
+      name="url" 
+      placeholder="https://www.example.com"
+      value="<?= htmlspecialchars($url) ?>"
+    >
+    <input
+      class="rounded-md bg-blue-600 px-10 py-2 font-medium text-white uppercase"
+      type="submit"
+      value="Проверить"
+    />
+  </div>
+
+  <div class="mt-2 h-5 text-sm text-red-600">
+    <?php if (isset($errors['url'])): ?>
+      <?php foreach ($errors['url'] as $error): ?>
+        <div><?= htmlspecialchars($error) ?></div>
+      <?php endforeach ?>
+    <?php endif ?>
+
+    <?php if (isset($errors['duplicate'])): ?>
+      <?php foreach ($errors['duplicate'] as $error): ?>
+        <div><?= htmlspecialchars($error) ?></div>
+      <?php endforeach ?>
+    <?php endif ?>
+  </div>
 </form>

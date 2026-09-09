@@ -1,3 +1,8 @@
+<?php
+/** @var string $content */
+/** @var array $flash */
+?>
+
 <!doctype html>
 <html lang="ru">
   <head>
@@ -11,22 +16,22 @@
       <nav>
       <ul class="ml-6 flex gap-4">
         <li><a class="text-sm text-gray-300" href="/">Главная</a></li>
-        <li><a class="text-sm text-gray-300" href="/sites">Сайты</a></li>
+        <li><a class="text-sm text-gray-300" href="/urls">Сайты</a></li>
       </ul>
       </nav>
     </header>
+    <div role="alert">
+      <?php if (!empty($flash)) : ?>
+        <?php foreach ($flash as $messages) : ?>
+          <?php foreach ($messages as $message) : ?>
+            <div class="flex min-h-[52px] items-center border border-green-600 bg-green-100 px-3 py-3 text-green-800 rounded">
+              <?= htmlspecialchars($message) ?>
+            </div>
+          <?php endforeach ?>
+        <?php endforeach ?>
+      <?php endif ?>
+    </div>
     <main>
-      <div role="alert">
-        <?php if (count($flash) > 0) : ?>
-            <ul>
-            <?php foreach ($flash as $messages) : ?>
-                <?php foreach ($messages as $message) : ?>
-                <li><?= $message ?></li>
-                <?php endforeach ?>
-            <?php endforeach ?>
-            </ul>
-        <?php endif ?>
-      </div>
       <?= $content ?>
     </main>
   </body>

@@ -1,0 +1,37 @@
+<?php
+/** @var array $urls */
+?>
+
+<div class="mt-6 px-8">
+  <h1 class="text-4xl">
+    Сайты
+  </h1>
+
+  <table data-test="urls" class="mt-6 mb-8 w-full border-collapse border border-stone-300">
+    <thead>
+      <tr class="hover:bg-stone-200">
+        <th class="border border-stone-300 px-4 py-2 text-left font-medium">ID</th>
+        <th class="border border-stone-300 px-4 py-2 text-left font-medium">Имя</th>
+        <th class="border border-stone-300 px-4 py-2 text-left font-medium">Дата создания</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($urls as $url): ?>
+        <tr class="hover:bg-stone-200">
+          <td class="border border-stone-300 px-4 py-2"><?= $url->getId() ?></td>
+          <td class="border border-stone-300 px-4 py-2">
+            <a
+              class="text-blue-600 underline"
+              href="/urls/<?= $url->getId() ?>"
+            >
+              <?= htmlspecialchars($url->getName()) ?>
+            </a>
+          </td>
+          <td class="border border-stone-300 px-4 py-2">
+            <?= $url->getCreatedAt()->format('Y-m-d') ?>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+</div>

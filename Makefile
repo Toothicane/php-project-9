@@ -9,4 +9,4 @@ setup:
 	npx @tailwindcss/cli -i ./app.css -o ./public/styles.css
 
 lint:
-	composer exec --verbose phpcs -- --standard=PSR12 public
+	composer exec --verbose phpcs -- --standard=PSR12 public src
