@@ -14,6 +14,7 @@
         <th class="border border-stone-300 px-4 py-2 text-left font-medium">Имя</th>
         <th class="border border-stone-300 px-4 py-2 text-left font-medium">Дата создания</th>
         <th class="border border-stone-300 px-4 py-2 text-left font-medium">Дата последней проверки</th>
+        <th class="border border-stone-300 px-4 py-2 text-left font-medium">Код ответа</th>
       </tr>
     </thead>
     <tbody>
@@ -34,6 +35,9 @@
           </td>
           <td class="border border-stone-300 px-4 py-2">
             <?= $item->getLastCheck()?->format('Y-m-d') ?? '—' ?>
+          </td>
+          <td class="border border-stone-300 px-4 py-2"> 
+            <?= $item->getLastStatusCode() ?? '—' ?> 
           </td>
         </tr>
       <?php endforeach; ?>

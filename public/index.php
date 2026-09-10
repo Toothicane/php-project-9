@@ -8,6 +8,8 @@ use Slim\Factory\AppFactory;
 use DI\Container;
 use Slim\Flash\Messages;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Hexlet\Code\Urls\UrlRepository;
 use Hexlet\Code\Urls\Url;
 use Hexlet\Code\Validator;
@@ -167,13 +169,32 @@ $app->post('/urls/{id}/checks', function ($request, $response, $args) use ($repo
         return $response->withHeader('Location', $urlPath)->withStatus(302);
     }
 
-    $check = new UrlCheck();
-    $check->setUrlId($urlId);
-    $check->setCreatedAt(Carbon::now());
+    $client = new Client([
+        'http_errors' => false,
+        'timeout' => 10
+    ]);
 
-    $checkRepo->create($check);
+    try {
+        $responseFromSite = $client->request('GET', $url->getName());
+        $statusCode = $responseFromSite->getStatusCode();
 
-    $this->get('flash')->addMessage('success', 'Страница успешно проверена');
+        $check = new UrlCheck();
+        $check->setUrlId($urlId);
+        $check->setStatusCode($statusCode);
+        $check->setCreatedAt(Carbon::now());
+
+        $checkRepo->create($check);
+
+        $this->get('flash')->addMessage(
+            'success',
+            'Страница успешно проверена'
+        );
+    } catch (GuzzleException) {
+        $this->get('flash')->addMessage(
+            'error',
+            'Произошла ошибка при проверке, не удалось подключиться'
+        );
+    }
 
     $urlPath = $router->urlFor('url', ['id' => $urlId]);
 

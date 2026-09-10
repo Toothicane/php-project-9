@@ -17,16 +17,18 @@ class UrlCheckRepository
 
     public function create(UrlCheck $check): void
     {
-        $sql = "INSERT INTO url_checks (url_id, created_at)
-            VALUES (:urlId, :createdAt)
+        $sql = "INSERT INTO url_checks (url_id, status_code, created_at)
+            VALUES (:urlId, :statusCode, :createdAt)
         ";
 
         $stmt = $this->conn->prepare($sql);
 
         $urlId = $check->getUrlId();
+        $statusCode = $check->getStatusCode();
         $createdAt = $check->getCreatedAt()->toDateTimeString();
 
         $stmt->bindParam(':urlId', $urlId);
+        $stmt->bindParam(':statusCode', $statusCode);
         $stmt->bindParam(':createdAt', $createdAt);
 
         $stmt->execute();

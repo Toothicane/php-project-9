@@ -10,14 +10,16 @@ class UrlCheck
 {
     private ?int $id = null;
     private int $urlId;
+    private int $statusCode;
     private Carbon $createdAt;
 
     public static function fromArray(array $checkData): UrlCheck
     {
-        ['url_id' => $urlId, 'created_at' => $createdAt] = $checkData;
+        ['url_id' => $urlId, 'status_code' => $statusCode, 'created_at' => $createdAt] = $checkData;
 
         $check = new UrlCheck();
         $check->setUrlId($urlId);
+        $check->setStatusCode($statusCode);
         $check->setCreatedAt(Carbon::parse($createdAt));
 
         return $check;
@@ -33,6 +35,11 @@ class UrlCheck
         return $this->urlId;
     }
 
+    public function getStatusCode(): int
+    {
+        return $this->statusCode;
+    }
+
     public function getCreatedAt(): Carbon
     {
         return $this->createdAt;
@@ -46,6 +53,11 @@ class UrlCheck
     public function setUrlId(int $urlId): void
     {
         $this->urlId = $urlId;
+    }
+
+    public function setStatusCode(int $statusCode): void
+    {
+        $this->statusCode = $statusCode;
     }
 
     public function setCreatedAt(Carbon $time): void

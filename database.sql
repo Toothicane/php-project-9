@@ -13,3 +13,6 @@ CREATE TABLE url_checks (
     description TEXT,
     created_at TIMESTAMP NOT NULL
 );
+
+ALTER TABLE url_checks
+ALTER COLUMN status_code SET NOT NULL;

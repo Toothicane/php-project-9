@@ -39,10 +39,17 @@ class UrlRepository
                 urls.id,
                 urls.name,
                 urls.created_at,
-                MAX(url_checks.created_at) AS last_check
+                last_check.created_at AS last_check,
+                last_check.status_code AS last_status_code
             FROM urls
-            LEFT JOIN url_checks ON urls.id = url_checks.url_id
-            GROUP BY urls.id
+            LEFT JOIN (
+                SELECT DISTINCT ON (url_id)
+                    url_id,
+                    created_at,
+                    status_code
+                FROM url_checks
+                ORDER BY url_id, created_at DESC, id DESC
+            ) AS last_check ON last_check.url_id = urls.id
             ORDER BY urls.created_at DESC
         ";
 
@@ -57,7 +64,12 @@ class UrlRepository
                 ? Carbon::parse($row['last_check'])
                 : null;
 
-            $result[] = new UrlWithLastCheck($url, $lastCheck);
+            $lastCode = ($row['last_status_code'] !== null)
+                ? (int) $row['last_status_code']
+                : null;
+
+
+            $result[] = new UrlWithLastCheck($url, $lastCheck, $lastCode);
         }
 
         return $result;

@@ -53,6 +53,9 @@ use Hexlet\Code\Urls\Url;
           ID
         </th>
         <th class="border border-stone-300 px-4 py-2 font-medium">
+          Код ответа
+        </th>
+        <th class="border border-stone-300 px-4 py-2 font-medium">
           Дата создания
         </th>
       </tr>
@@ -63,6 +66,9 @@ use Hexlet\Code\Urls\Url;
         <tr class="hover:bg-stone-200">
           <td class="border border-stone-300 px-4 py-2">
             <?= $check->getId() ?>
+          </td>
+          <td class="border border-stone-300 px-4 py-2">
+            <?= $check->getStatusCode() ?>
           </td>
           <td class="border border-stone-300 px-4 py-2">
             <?= $check->getCreatedAt()->format('Y-m-d') ?>
