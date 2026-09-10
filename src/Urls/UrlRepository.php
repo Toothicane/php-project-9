@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hexlet\Code;
+namespace Hexlet\Code\Urls;
 
 use PDO;
+use Carbon\Carbon;
 
 class UrlRepository
 {
@@ -30,6 +31,36 @@ class UrlRepository
         }
 
         return $urls;
+    }
+
+    public function getAllWithLastCheck(): array
+    {
+        $sql = "SELECT
+                urls.id,
+                urls.name,
+                urls.created_at,
+                MAX(url_checks.created_at) AS last_check
+            FROM urls
+            LEFT JOIN url_checks ON urls.id = url_checks.url_id
+            GROUP BY urls.id
+            ORDER BY urls.created_at DESC
+        ";
+
+        $stmt = $this->conn->query($sql);
+
+        $result = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $url = Url::fromArray($row);
+            $url->setId($row['id']);
+
+            $lastCheck = ($row['last_check'] !== null)
+                ? Carbon::parse($row['last_check'])
+                : null;
+
+            $result[] = new UrlWithLastCheck($url, $lastCheck);
+        }
+
+        return $result;
     }
 
     public function save(Url $url): void

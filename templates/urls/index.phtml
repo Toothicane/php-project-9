@@ -1,5 +1,5 @@
 <?php
-/** @var array $urls */
+/** @var array $urlsWithCheck */
 ?>
 
 <div class="mt-6 px-8">
@@ -9,14 +9,16 @@
 
   <table data-test="urls" class="mt-6 mb-8 w-full border-collapse border border-stone-300">
     <thead>
-      <tr class="hover:bg-stone-200">
+      <tr>
         <th class="border border-stone-300 px-4 py-2 text-left font-medium">ID</th>
         <th class="border border-stone-300 px-4 py-2 text-left font-medium">Имя</th>
         <th class="border border-stone-300 px-4 py-2 text-left font-medium">Дата создания</th>
+        <th class="border border-stone-300 px-4 py-2 text-left font-medium">Дата последней проверки</th>
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($urls as $url): ?>
+      <?php foreach ($urlsWithCheck as $item): ?>
+        <?php $url = $item->getUrl(); ?>
         <tr class="hover:bg-stone-200">
           <td class="border border-stone-300 px-4 py-2"><?= $url->getId() ?></td>
           <td class="border border-stone-300 px-4 py-2">
@@ -29,6 +31,9 @@
           </td>
           <td class="border border-stone-300 px-4 py-2">
             <?= $url->getCreatedAt()->format('Y-m-d') ?>
+          </td>
+          <td class="border border-stone-300 px-4 py-2">
+            <?= $item->getLastCheck()?->format('Y-m-d') ?? '—' ?>
           </td>
         </tr>
       <?php endforeach; ?>

@@ -1,26 +1,74 @@
 <?php
-/** @var array $url */
+use Hexlet\Code\Urls\Url;
+
+/** @var Url $url */
+/** @var array $checks */
 ?>
 
 <div class="mt-6 px-8">
   <h1 class="text-4xl">
-    Сайт: <?= htmlspecialchars($url['name']) ?>
+    Сайт: <?= htmlspecialchars($url->getName()) ?>
   </h1>
 
   <table data-test="url" class="mt-4 w-full border-collapse border border-stone-300">
     <tbody>
       <tr class="hover:bg-stone-200">
         <td class="border border-stone-300 px-4 py-2 font-medium">ID</td>
-        <td class="border border-stone-300 px-4 py-2"><?= $url['id'] ?></td>
+        <td class="border border-stone-300 px-4 py-2"><?= $url->getId() ?></td>
       </tr>
       <tr class="hover:bg-stone-200">
         <td class="border border-stone-300 px-4 py-2 font-medium">Имя</td>
-        <td class="border border-stone-300 px-4 py-2"><?= htmlspecialchars($url['name']) ?></td>
+        <td class="border border-stone-300 px-4 py-2"><?= htmlspecialchars($url->getName()) ?></td>
       </tr>
       <tr class="hover:bg-stone-200">
         <td class="border border-stone-300 px-4 py-2 font-medium">Дата создания</td>
-        <td class="border border-stone-300 px-4 py-2"><?= $url['createdAt'] ?></td>
+        <td class="border border-stone-300 px-4 py-2"><?= $url->getCreatedAt()->format('Y-m-d') ?></td>
       </tr>
+    </tbody>
+  </table>
+
+  <h2 class="mt-6 text-2xl">
+    Проверки
+  </h2>
+
+  <form
+    class="mt-4"
+    method="post"
+    action="/urls/<?= $url->getId() ?>/checks"
+  >
+    <input
+      class="rounded-md bg-blue-600 px-4 py-2 font-medium text-white"
+      type="submit"
+      value="Запустить проверку"
+    >
+  </form>
+
+  <table
+    data-test="checks"
+    class="mt-4 w-full border-collapse border border-stone-300"
+  >
+    <thead>
+      <tr>
+        <th class="border border-stone-300 px-4 py-2 font-medium">
+          ID
+        </th>
+        <th class="border border-stone-300 px-4 py-2 font-medium">
+          Дата создания
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <?php foreach ($checks as $check): ?>
+        <tr class="hover:bg-stone-200">
+          <td class="border border-stone-300 px-4 py-2">
+            <?= $check->getId() ?>
+          </td>
+          <td class="border border-stone-300 px-4 py-2">
+            <?= $check->getCreatedAt()->format('Y-m-d') ?>
+          </td>
+        </tr>
+      <?php endforeach; ?>
     </tbody>
   </table>
 </div>

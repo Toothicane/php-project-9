@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Hexlet\Code;
+namespace Hexlet\Code\Urls;
 
 use Carbon\Carbon;
 
 class Url
 {
     private ?int $id = null;
-    private ?string $name = null;
-    private ?Carbon $createdAt = null;
+    private string $name;
+    private Carbon $createdAt;
 
     public static function fromArray(array $urlData): Url
     {
@@ -26,12 +26,12 @@ class Url
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getCreatedAt(): ?Carbon
+    public function getCreatedAt(): Carbon
     {
         return $this->createdAt;
     }

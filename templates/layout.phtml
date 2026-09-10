@@ -14,17 +14,22 @@
     <header class="flex items-center bg-gray-900 px-3 py-3">
       <h3 class="text-white">Анализатор страниц</h3>
       <nav>
-      <ul class="ml-6 flex gap-4">
-        <li><a class="text-sm text-gray-300" href="/">Главная</a></li>
-        <li><a class="text-sm text-gray-300" href="/urls">Сайты</a></li>
-      </ul>
+        <ul class="ml-6 flex gap-4">
+          <li><a class="text-sm text-gray-300" href="/">Главная</a></li>
+          <li><a class="text-sm text-gray-300" href="/urls">Сайты</a></li>
+        </ul>
       </nav>
     </header>
     <div role="alert">
       <?php if (!empty($flash)) : ?>
-        <?php foreach ($flash as $messages) : ?>
+        <?php foreach ($flash as $type => $messages) : ?>
           <?php foreach ($messages as $message) : ?>
-            <div class="flex min-h-[52px] items-center border border-green-600 bg-green-100 px-3 py-3 text-green-800 rounded">
+            <?php
+              $colorClasses = ($type === 'success')
+                ? 'border-green-600 bg-green-100 text-green-800'
+                : 'border-red-600 bg-red-100 text-red-800';
+            ?>
+            <div class="flex min-h-[52px] items-center rounded border px-3 py-3 <?= $colorClasses ?>">
               <?= htmlspecialchars($message) ?>
             </div>
           <?php endforeach ?>
