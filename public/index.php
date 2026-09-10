@@ -10,11 +10,14 @@ use Slim\Flash\Messages;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Symfony\Component\DomCrawler\Crawler;
 use Hexlet\Code\Urls\UrlRepository;
 use Hexlet\Code\Urls\Url;
 use Hexlet\Code\Validator;
 use Hexlet\Code\UrlChecks\UrlCheckRepository;
 use Hexlet\Code\UrlChecks\UrlCheck;
+
+const REQUEST_TIMEOUT = 10;
 
 $autoloadPath1 = __DIR__ . '/../../../autoload.php';
 $autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
@@ -110,7 +113,7 @@ $app->post('/', function ($request, $response) use ($router, $repo) {
     $urlObject->setName($name);
     $urlObject->setCreatedAt(Carbon::now());
 
-    $repo->save($urlObject);
+    $repo->create($urlObject);
 
     $this->get('flash')->addMessage(
         'success',
@@ -171,16 +174,35 @@ $app->post('/urls/{id}/checks', function ($request, $response, $args) use ($repo
 
     $client = new Client([
         'http_errors' => false,
-        'timeout' => 10
+        'timeout' => REQUEST_TIMEOUT
     ]);
 
     try {
         $responseFromSite = $client->request('GET', $url->getName());
+
         $statusCode = $responseFromSite->getStatusCode();
+        $html = $responseFromSite->getBody()->getContents();
+
+        $crawler = new Crawler($html);
+        $h1 = null;
+        if ($crawler->filter('h1')->count() > 0) {
+            $h1 = $crawler->filter('h1')->first()->text();
+        }
+        $title = null;
+        if ($crawler->filter('title')->count() > 0) {
+            $title = $crawler->filter('title')->first()->text();
+        }
+        $description = null;
+        if ($crawler->filter('meta[name="description"]')->count() > 0) {
+            $description = $crawler->filter('meta[name="description"]')->first()->attr('content');
+        }
 
         $check = new UrlCheck();
         $check->setUrlId($urlId);
         $check->setStatusCode($statusCode);
+        $check->setH1($h1);
+        $check->setTitle($title);
+        $check->setDescription($description);
         $check->setCreatedAt(Carbon::now());
 
         $checkRepo->create($check);

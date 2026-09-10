@@ -16,3 +16,7 @@ CREATE TABLE url_checks (
 
 ALTER TABLE url_checks
 ALTER COLUMN status_code SET NOT NULL;
+
+ALTER TABLE url_checks
+ALTER COLUMN h1 TYPE TEXT,
+ALTER COLUMN title TYPE TEXT;

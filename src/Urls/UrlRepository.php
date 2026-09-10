@@ -75,15 +75,6 @@ class UrlRepository
         return $result;
     }
 
-    public function save(Url $url): void
-    {
-        if ($url->exists()) {
-            $this->update($url);
-        } else {
-            $this->create($url);
-        }
-    }
-
     public function create(Url $url): void
     {
         $sql = "INSERT INTO urls (name, created_at)
@@ -97,22 +88,6 @@ class UrlRepository
         $stmt->execute();
         $id = (int) $this->conn->lastInsertId();
         $url->setId($id);
-    }
-
-    public function update(Url $url): void
-    {
-        $sql = "UPDATE urls SET
-            name = :name, created_at = :createdAt
-            WHERE id = :id
-        ";
-        $stmt = $this->conn->prepare($sql);
-        $name = $url->getName();
-        $createdAt = $url->getCreatedAt()->toDateTimeString();
-        $id = $url->getId();
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':createdAt', $createdAt);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
     }
 
     public function find(int $id): ?Url
