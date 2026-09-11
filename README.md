@@ -1,40 +1,21 @@
-# Анализатор страниц (PHP)
+[![hexlet-check](https://github.com/Toothicane/php-project-9/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Toothicane/php-project-9/actions)  
 
-[![hexlet-check](https://github.com/Toothicane/php-project-9/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Toothicane/php-project-9/actions)
+# Page Analyzer (PHP)
 
+Page Analyzer is a web service for analyzing web pages and collecting basic SEO metadata.  
+The application accepts a URL and sends an HTTP request to the specified website. It stores the HTTP response status code and extracts the following SEO elements from the returned HTML document, if they are present:
 
+`<h1>` content
+`<title>` content
+`<meta name="description">` content
+
+## Usage
+
+To add a website, enter its URL on the **Main** page and submit the form. After the URL is validated and added, it becomes available on the **Sites** page.  
+Select a website from the list to view its details. The page displays the website information and the results of all previously performed checks.  
+To perform another check, click **Run check**. The results are added to the check history.
+
+## Project demo
+
+The deployed application with a connected database is available here:
 [Deployed project](https://php-project-9-1upv.onrender.com)  
-Создадите полноценное веб-приложение, которое выполняет запросы по сети и сохраняет данные в базу данных. Настроите CI и выполните деплой.
-
-Учебный проект Хекслета: https://ru.hexlet.io/programs/php
-Как это должно работать: https://files.hexlet.app/a/tefi04
-
-## Стек
-
-- PHP
-
-## Установка
-
-<!-- Опишите установку: клонирование, зависимости, переменные окружения -->
-
-```bash
-git clone https://github.com/Toothicane/php-project-9.git
-cd php-project-9
-```
-
-## Использование
-
-<!-- Добавьте примеры запуска и запись asciinema — именно это смотрит работодатель -->
-
----
-
-<details>
-<summary>Автоматические тесты Хекслета</summary>
-
-Тесты запускаются на каждый коммит. За запуск отвечает файл `.github/workflows/hexlet-check.yml` — не удаляйте и не переименовывайте ни его, ни репозиторий.
-
-</details>
-
-## О Хекслете
-
-[Хекслет](https://ru.hexlet.io/) — школа программирования: авторские программы обучения с практикой, поддержкой наставников и реальными проектами, которые остаются в резюме. Этот репозиторий — один из таких проектов.
