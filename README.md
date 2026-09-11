@@ -5,8 +5,8 @@
 Page Analyzer is a web service for analyzing web pages and collecting basic SEO metadata.  
 The application accepts a URL and sends an HTTP request to the specified website. It stores the HTTP response status code and extracts the following SEO elements from the returned HTML document, if they are present:
 
-`<h1>` content
-`<title>` content
+`<h1>` content  
+`<title>` content  
 `<meta name="description">` content
 
 ## Usage
@@ -18,4 +18,4 @@ To perform another check, click **Run check**. The results are added to the chec
 ## Project demo
 
 The deployed application with a connected database is available here:
-[Deployed project](https://php-project-9-1upv.onrender.com)  
+[deployed project](https://php-project-9-1upv.onrender.com)
