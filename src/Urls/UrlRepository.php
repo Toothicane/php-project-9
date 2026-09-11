@@ -16,23 +16,6 @@ class UrlRepository
         $this->conn = $conn;
     }
 
-    public function getAll(): array
-    {
-        $urls = [];
-        $sql = "SELECT * FROM urls
-            ORDER BY created_at DESC
-        ";
-        $stmt = $this->conn->query($sql);
-
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $url = Url::fromArray($row);
-            $url->setId($row['id']);
-            $urls[] = $url;
-        }
-
-        return $urls;
-    }
-
     public function getAllWithLastCheck(): array
     {
         $sql = "SELECT
@@ -122,15 +105,5 @@ class UrlRepository
         }
 
         return null;
-    }
-
-    public function delete(int $id): void
-    {
-        $sql = "DELETE FROM urls
-            WHERE id = :id
-        ";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
     }
 }

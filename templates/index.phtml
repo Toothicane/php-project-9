@@ -28,11 +28,5 @@
         <div><?= htmlspecialchars($error) ?></div>
       <?php endforeach ?>
     <?php endif ?>
-
-    <?php if (isset($errors['duplicate'])): ?>
-      <?php foreach ($errors['duplicate'] as $error): ?>
-        <div><?= htmlspecialchars($error) ?></div>
-      <?php endforeach ?>
-    <?php endif ?>
   </div>
 </form>

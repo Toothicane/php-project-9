@@ -10,7 +10,6 @@ class UrlWithLastCheck
 {
     private Url $url;
     private ?Carbon $lastCheck;
-
     private ?int $lastStatusCode;
 
     public function __construct(Url $url, ?Carbon $lastCheck, ?int $lastStatusCode)
