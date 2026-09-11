@@ -103,9 +103,9 @@ $app->post('/', function ($request, $response) use ($router, $repo) {
             'error',
             'Страница уже существует'
         );
-    
+
         $urlPath = $router->urlFor('url', ['id' => $duplicateUrl->getId()]);
-    
+
         return $response->withHeader('Location', $urlPath)->withStatus(302);
     }
 
