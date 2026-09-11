@@ -99,14 +99,14 @@ $app->post('/', function ($request, $response) use ($router, $repo) {
     $duplicateUrl = $repo->findByName($name);
 
     if ($duplicateUrl !== null) {
-        $errors['duplicate'] = ['Страница уже существует'];
-        $params = [
-            'url' => $url,
-            'errors' => $errors
-        ];
-        $response = $response->withStatus(422);
-
-        return $this->get('renderer')->render($response, 'index.phtml', $params);
+        $this->get('flash')->addMessage(
+            'error',
+            'Страница уже существует'
+        );
+    
+        $urlPath = $router->urlFor('url', ['id' => $duplicateUrl->getId()]);
+    
+        return $response->withHeader('Location', $urlPath)->withStatus(302);
     }
 
     $urlObject = new Url();
