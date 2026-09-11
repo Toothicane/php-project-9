@@ -173,7 +173,7 @@ $app->post('/urls/{id}/checks', function ($request, $response, $args) use ($repo
     }
 
     $client = new Client([
-        'http_errors' => false,
+        'http_errors' => true,
         'timeout' => REQUEST_TIMEOUT
     ]);
 
