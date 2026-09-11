@@ -77,7 +77,7 @@ $app->get('/', function (Request $request, Response $response) {
     return $this->get('renderer')->render($response, 'index.phtml', $params);
 });
 
-$app->post('/', function ($request, $response) use ($router, $repo) {
+$app->post('/urls', function ($request, $response) use ($router, $repo) {
     $body = $request->getParsedBody();
     $url = $body['url'] ?? null;
     $urlData = ['url' => $url];
